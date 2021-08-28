@@ -20,7 +20,7 @@ const App = () => {
   const [show, setShow] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(10);
+  const [count, setCount] = useState(0);
   const [confirm, setConfirm] = useState(false);
   const [details, setDetails] = useState({
     name: "",
@@ -39,7 +39,7 @@ const App = () => {
       axios
         .get("images/", { method: "GET" })
         .then((resposne) => {
-          setCount(resposne.data.length);
+          setCount(resposne.data.rows.length);
           dispatch(createImages(resposne.data.rows));
           setTimeout(() => setLoading(false), time[pickRandom]);
         })
