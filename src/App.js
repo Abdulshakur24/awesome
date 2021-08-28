@@ -32,7 +32,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     const fetchData = () => {
       const time = [1600, 2000, 1000, 800, 4000];
       const pickRandom = Math.floor(Math.random() * time.length);
