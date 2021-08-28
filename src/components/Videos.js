@@ -20,7 +20,7 @@ const Videos = () => {
         .get("/videos", { method: "GET" })
         .then((response) => {
           setCount(response.data.rows.length);
-          dispatch(createVideos(response.data.rows));
+          dispatch(createVideos(response.data.rows || []));
           setTimeout(() => setLoading(false), time[pickRandom]);
         })
         .catch((err) => console.error(err));
