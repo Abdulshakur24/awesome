@@ -20,7 +20,7 @@ const App = () => {
   const [show, setShow] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(10);
   const [confirm, setConfirm] = useState(false);
   const [details, setDetails] = useState({
     name: "",
