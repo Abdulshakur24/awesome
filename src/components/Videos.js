@@ -30,7 +30,7 @@ const Videos = () => {
 
   return (
     <div className="videos">
-      {!loading ? (
+      {loading ? (
         <SkeletonTheme
           style={{ height: "100%", width: "100%" }}
           color="#753422"
