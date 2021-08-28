@@ -1,0 +1,65 @@
+.header {
+  width: 100%;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+
+    .left {
+      img {
+        height: 3rem;
+      }
+    }
+    .right {
+      display: flex;
+      a {
+        color: #ffebc9;
+
+        &:not(:last-child) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+  .fixed {
+    position: fixed;
+    right: 0;
+    top: 1rem;
+    z-index: 10;
+    transition: all 300ms ease-in-out;
+    background-color: #753422;
+    &.video {
+      top: 18rem;
+    }
+
+    .container {
+      padding-left: 0;
+      margin-left: 0;
+      .sign {
+        cursor: pointer;
+        padding-right: 1rem;
+        margin-left: 0.5rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        input {
+          padding: 0.5rem;
+          margin: 0.25rem 0;
+        }
+        button {
+          padding: 0.5rem;
+        }
+      }
+    }
+
+    &.closed {
+      transform: translateX(90%);
+    }
+  }
+}

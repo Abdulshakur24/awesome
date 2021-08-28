@@ -1,0 +1,19 @@
+.footer {
+  width: 100%;
+  button {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.45rem;
+    cursor: pointer;
+    border: none;
+    background-color: #753422;
+    color: #ffebc9;
+
+    div {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+}
