@@ -8,20 +8,18 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const Videos = () => {
   const dispatch = useDispatch();
   const array = useSelector((state) => state.state.videos);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setLoading(true);
     const fetchData = () => {
-      const time = [1600, 2000, 1000, 800, 4000];
-      const pickRandom = Math.floor(Math.random() * time.length);
+      // setLoading(true);
       axios
         .get("/videos", { method: "GET" })
         .then((response) => {
           setCount(response.data.rows.length);
           dispatch(createVideos(response.data.rows || []));
-          setTimeout(() => setLoading(false), time[pickRandom]);
+          setTimeout(() => setLoading(false), 0);
         })
         .catch((err) => console.error(err));
     };

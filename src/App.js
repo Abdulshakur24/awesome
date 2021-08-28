@@ -32,7 +32,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     const fetchData = () => {
       const time = [1600, 2000, 1000, 800, 4000];
       const pickRandom = Math.floor(Math.random() * time.length);
@@ -40,7 +40,7 @@ const App = () => {
         .get("images/", { method: "GET" })
         .then((resposne) => {
           setCount(resposne.data.length);
-          dispatch(createImages(resposne.data));
+          dispatch(createImages(resposne.data.rows));
           setTimeout(() => setLoading(false), time[pickRandom]);
         })
         .catch((error) => console.error(error));
