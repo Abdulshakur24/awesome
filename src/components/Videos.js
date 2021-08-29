@@ -8,18 +8,18 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const Videos = () => {
   const dispatch = useDispatch();
   const array = useSelector((state) => state.state.videos);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchData = () => {
-      // setLoading(true);
+      setLoading(true);
       axios
         .get("/videos", { method: "GET" })
         .then((response) => {
           setCount(response.data.rows.length);
-          dispatch(createVideos(response.data.rows || []));
-          setTimeout(() => setLoading(false), 0);
+          dispatch(createVideos(response.data.rows));
+          setTimeout(() => setLoading(false), 1200);
         })
         .catch((err) => console.error(err));
     };
@@ -44,8 +44,8 @@ const Videos = () => {
           </p>
         </SkeletonTheme>
       ) : (
-        array.map(({ id, name, video_url }) => (
-          <Video key={id} id={id} name={name} url={video_url} />
+        array.map(({ id, video_url }) => (
+          <Video key={id} id={id} url={video_url} />
         ))
       )}
     </div>

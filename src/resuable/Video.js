@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import axios from "../axios";
 import { removeVideo } from "../features/State";
 
-const Video = ({ id, name, url }) => {
+const Video = ({ id, url }) => {
   const dispatch = useDispatch();
-  const deleteVideoFromDatabase = () => {
-    axios.delete(`videos/${id}`, { method: "DELETE" }).then((response) => {
-      if (response.data.command === "DELETE") dispatch(removeVideo(id));
-    });
+  const [loading, setLoading] = useState(false);
+
+  const deleteVideoFromDatabase = (e) => {
+    if (e.detail === 3) {
+      setLoading(true);
+      axios.delete(`videos/${id}`, { method: "DELETE" }).then((response) => {
+        if (response.data.command === "DELETE") {
+          dispatch(removeVideo(id));
+          setLoading(false);
+        } else setLoading(false);
+      });
+    }
   };
 
   return (
     <div className="video">
       <div className="container">
-        <h2>{name}</h2>
         <ReactPlayer className="player" controls key={id} url={url} />
-        <button onClick={deleteVideoFromDatabase}>Delete</button>
+        <button onClick={deleteVideoFromDatabase} disabled={loading}>
+          Triple clicks to delete
+        </button>
       </div>
     </div>
   );

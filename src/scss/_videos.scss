@@ -22,22 +22,29 @@
     .video {
       width: 100%;
       height: 100%;
-      margin-bottom: 5rem;
+      margin-bottom: 2rem 0;
+      display: grid;
+      place-items: center;
 
       .container {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+        max-width: 640px;
+        max-height: 360px;
+        padding: 0.5rem;
 
         .player {
           display: flex;
           justify-content: center;
           margin-bottom: 1rem;
+          transition: all 300ms ease-in-out;
+          margin-bottom: 0.25rem !important;
 
-          video {
-            width: auto !important;
-          }
+          width: 100% !important;
         }
       }
     }

@@ -1,58 +1,32 @@
 import "./App.scss";
-import { useSelector } from "react-redux";
 import logo from "./assets/logo.svg";
-import Image from "./resuable/Image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "./axios";
 import { useDispatch } from "react-redux";
-import {
-  addImage,
-  addVideo,
-  clearAllImages,
-  createImages,
-} from "./features/State";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { addImage, addVideo } from "./features/State";
 import Videos from "./components/Videos";
+import Images from "./components/Images";
 
 const App = () => {
-  const array = useSelector((state) => state.state.images);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(0);
-  const [confirm, setConfirm] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
+
   const [details, setDetails] = useState({
     name: "",
     url: "",
   });
+
   const [detailsVideos, setDetailsVdieos] = useState({
-    videoName: "",
     videoUrl: "",
   });
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchData = () => {
-      const time = [1600, 2000, 1000, 800, 4000];
-      const pickRandom = Math.floor(Math.random() * time.length);
-      axios
-        .get("images/", { method: "GET" })
-        .then((resposne) => {
-          setCount(resposne.data.rows.length);
-          dispatch(createImages(resposne.data.rows));
-          setTimeout(() => setLoading(false), time[pickRandom]);
-        })
-        .catch((error) => console.error(error));
-    };
-    fetchData();
-  }, [dispatch]);
 
   const { name, url } = details;
   const handleChange = (name) => (e) =>
     setDetails({ ...details, [name]: e.target.value });
 
-  const { videoName, videoUrl } = detailsVideos;
+  const { videoUrl } = detailsVideos;
   const handleChangeVideos = (name) => (e) =>
     setDetailsVdieos({ ...detailsVideos, [name]: e.target.value });
 
@@ -73,24 +47,21 @@ const App = () => {
   };
   const handleVideoSubmit = (e) => {
     e.preventDefault();
+    setLoadingButton(true);
     axios
       .post("videos/create", detailsVideos, { method: "POST" })
       .then((response) => {
         if (response.data.command === "INSERT") {
           const { id } = response.data.rows[0];
+          console.log({ ...detailsVideos, id });
           dispatch(addVideo({ ...detailsVideos, id }));
+          setLoadingButton(false);
           // setDetailsVdieos({
           //   name: "",
           //   url: "",
           // });
         }
       });
-  };
-
-  const deleteAll = () => {
-    axios.delete("images/delete/all", { method: "DELETE" }).then((response) => {
-      if (response.data.command === "TRUNCATE") dispatch(clearAllImages());
-    });
   };
 
   return (
@@ -137,58 +108,18 @@ const App = () => {
             >
               <h1>Videos</h1>
               <input
-                placeholder="Name"
-                onChange={handleChangeVideos("videoName")}
-                value={videoName}
-                required
-              />
-              <input
                 placeholder="Paste Video's URL here."
                 onChange={handleChangeVideos("videoUrl")}
                 value={videoUrl}
                 required
               />
-              <button>SUBMIT</button>
+              <button disabled={loadingButton}>SUBMIT</button>
             </form>
           </div>
         </div>
       </div>
-      <div className="body">
-        <div className="container">
-          {loading ? (
-            <SkeletonTheme
-              style={{ height: "100%", width: "100%" }}
-              color="#753422"
-              highlightColor="#b05b3b"
-            >
-              <p>
-                <Skeleton height={318} width={318} count={count} />
-              </p>
-            </SkeletonTheme>
-          ) : (
-            array.map(({ id, name, url }) => (
-              <Image key={id} id={id} url={url} name={name} />
-            ))
-          )}
-        </div>
-      </div>
-      <div className="footer">
-        {!confirm ? (
-          <button
-            onClick={() => setConfirm(true)}
-            disabled={array.length === 0}
-          >
-            CLEAR ALL IMAGES
-          </button>
-        ) : (
-          <button>
-            <h3>Are You Sure?</h3>
-            <div>
-              <p onClick={() => setConfirm(false)}>NO</p>
-              <p onClick={deleteAll}>YES</p>
-            </div>
-          </button>
-        )}
+      <div className="images-app">
+        <Images />
       </div>
       <div className="videos-app">
         <Videos />

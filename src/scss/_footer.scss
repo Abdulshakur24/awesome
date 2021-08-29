@@ -10,6 +10,11 @@
     background-color: #753422;
     color: #ffebc9;
 
+    &:disabled {
+      cursor: unset;
+      opacity: 0.5;
+    }
+
     div {
       margin-top: 0.5rem;
       display: flex;
