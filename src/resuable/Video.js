@@ -7,7 +7,7 @@ import { removeVideo } from "../features/State";
 const Video = ({ id, url }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
+  console.log(url);
   const deleteVideoFromDatabase = (e) => {
     if (e.detail === 3) {
       setLoading(true);
@@ -23,9 +23,9 @@ const Video = ({ id, url }) => {
   return (
     <div className="video">
       <div className="container">
-        <ReactPlayer className="player" controls key={id} url={url} />
+        <ReactPlayer className="player" type="text/html" controls url={url} />
         <button onClick={deleteVideoFromDatabase} disabled={loading}>
-          Triple clicks to delete
+          Triple clicks to delete this video
         </button>
       </div>
     </div>

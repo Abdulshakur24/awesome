@@ -17,6 +17,7 @@ const Videos = () => {
       axios
         .get("/videos", { method: "GET" })
         .then((response) => {
+          console.log(response.data.rows);
           setCount(response.data.rows.length);
           dispatch(createVideos(response.data.rows));
           setTimeout(() => setLoading(false), 1200);

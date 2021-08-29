@@ -9,6 +9,7 @@
     border: none;
     background-color: #753422;
     color: #ffebc9;
+    z-index: 1;
 
     &:disabled {
       cursor: unset;

@@ -32,7 +32,7 @@
         justify-content: center;
         align-items: flex-start;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         max-width: 640px;
         max-height: 360px;
         padding: 0.5rem;
@@ -43,8 +43,20 @@
           margin-bottom: 1rem;
           transition: all 300ms ease-in-out;
           margin-bottom: 0.25rem !important;
-
           width: 100% !important;
+          height: 100%;
+        }
+        button {
+          padding: 0.25rem;
+          cursor: pointer;
+          border: none;
+          background-color: #753422;
+          color: white;
+
+          &:disabled {
+            opacity: 0.7;
+            cursor: unset;
+          }
         }
       }
     }

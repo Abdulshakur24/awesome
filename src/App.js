@@ -19,14 +19,14 @@ const App = () => {
   });
 
   const [detailsVideos, setDetailsVdieos] = useState({
-    videoUrl: "",
+    video_url: "",
   });
 
   const { name, url } = details;
   const handleChange = (name) => (e) =>
     setDetails({ ...details, [name]: e.target.value });
 
-  const { videoUrl } = detailsVideos;
+  const { video_url } = detailsVideos;
   const handleChangeVideos = (name) => (e) =>
     setDetailsVdieos({ ...detailsVideos, [name]: e.target.value });
 
@@ -109,8 +109,8 @@ const App = () => {
               <h1>Videos</h1>
               <input
                 placeholder="Paste Video's URL here."
-                onChange={handleChangeVideos("videoUrl")}
-                value={videoUrl}
+                onChange={handleChangeVideos("video_url")}
+                value={video_url}
                 required
               />
               <button disabled={loadingButton}>SUBMIT</button>
