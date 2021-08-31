@@ -7,7 +7,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Videos = () => {
   const dispatch = useDispatch();
-  const array = useSelector((state) => state.state.videos);
+  const array = useSelector((states) => states.state.videos);
   const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -17,14 +17,13 @@ const Videos = () => {
       axios
         .get("/videos", { method: "GET" })
         .then((response) => {
-          console.log(response.data.rows);
           setCount(response.data.rows.length);
           dispatch(createVideos(response.data.rows));
           setTimeout(() => setLoading(false), 1200);
         })
         .catch((err) => console.error(err));
     };
-    fetchData();
+    return () => fetchData();
   }, [dispatch]);
 
   return (
@@ -36,12 +35,7 @@ const Videos = () => {
           highlightColor="#b05b3b"
         >
           <p>
-            <Skeleton
-              className="skeleton"
-              height={360}
-              width={640}
-              count={count}
-            />
+            <Skeleton className="skeleton" count={count} />
           </p>
         </SkeletonTheme>
       ) : (

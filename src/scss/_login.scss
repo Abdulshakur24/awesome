@@ -1,0 +1,81 @@
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  align-items: center;
+  .container {
+    width: 100%;
+    height: 100vh;
+    border-radius: 4px;
+    border: 1px solid #753422;
+    max-width: 380px;
+    max-height: 400px;
+    margin: 5rem;
+    padding: 1rem;
+
+    .header {
+      margin-bottom: 1rem;
+    }
+    .body {
+      form {
+        transition: all 300ms ease-in-out;
+        input,
+        button {
+          width: 100%;
+          padding: 0.45rem;
+          outline: none;
+          border-radius: 4px;
+          border: 2px solid #753422;
+          background-color: #753422;
+          color: white;
+
+          &::placeholder {
+            color: #ffebc9;
+          }
+
+          &:focus {
+            border: 2px solid #a03616;
+          }
+
+          &:not(:first-child) {
+            margin-top: 1rem;
+          }
+          &:last-child {
+            margin-bottom: 1rem;
+          }
+        }
+
+        button {
+          padding: 0.5rem;
+          cursor: pointer;
+          color: #ffebc9;
+          background-color: #753422;
+          border: unset;
+          transition: all 200ms ease-in-out;
+          &:hover {
+            opacity: 0.85;
+          }
+          &:focus {
+            border: unset;
+          }
+        }
+      }
+
+      h4 {
+        color: rgb(255, 174, 0);
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        em {
+          margin-left: 0.25rem;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

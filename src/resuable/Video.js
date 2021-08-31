@@ -7,7 +7,6 @@ import { removeVideo } from "../features/State";
 const Video = ({ id, url }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  console.log(url);
   const deleteVideoFromDatabase = (e) => {
     if (e.detail === 3) {
       setLoading(true);

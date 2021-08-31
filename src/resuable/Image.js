@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeImage } from "../features/State";
 import axios from "../axios";
 
 const Image = ({ id, name, url }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const deleteDataFromDatabase = (e) => {
+    setLoading(true);
     e.preventDefault();
     axios.delete(`images/${id}`, { method: "DELETE" }).then((response) => {
-      if (response.data.command === "DELETE") dispatch(removeImage(id));
+      if (response.data.command === "DELETE") {
+        dispatch(removeImage(id));
+        setLoading(false);
+      }
     });
   };
 
   return (
-    <div className="image">
+    <div className={`image ${loading ? "loading" : "unloaded"}`}>
       <div className="top">
         <div
-          loading="lazy"
           className="actual"
           style={{
             backgroundImage: `url(${url})`,
