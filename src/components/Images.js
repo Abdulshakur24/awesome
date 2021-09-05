@@ -11,6 +11,7 @@ const Images = () => {
   const [count, setCount] = useState(0);
   const [confirm, setConfirm] = useState(false);
   const dispatch = useDispatch();
+  const user_id = useSelector((state) => state.users.user.id);
 
   useEffect(() => {
     setLoading(true);
@@ -18,7 +19,7 @@ const Images = () => {
       const time = [1600, 2000, 1000, 800, 4000];
       const pickRandom = Math.floor(Math.random() * time.length);
       axios
-        .get("images/", { method: "GET" })
+        .get(`images/${user_id}`, { method: "GET" })
         .then((resposne) => {
           setCount(resposne.data.rows.length);
           dispatch(createImages(resposne.data.rows));
@@ -27,7 +28,7 @@ const Images = () => {
         .catch((error) => console.error(error));
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, user_id]);
 
   const deleteAll = () => {
     axios.delete("images/delete/all", { method: "DELETE" }).then((response) => {

@@ -10,21 +10,23 @@ const Videos = () => {
   const array = useSelector((states) => states.state.videos);
   const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(0);
+  const user_id = useSelector((state) => state.users.user.id);
 
   useEffect(() => {
     const fetchData = () => {
       setLoading(true);
       axios
-        .get("/videos", { method: "GET" })
+        .get(`/videos/${user_id}`, { method: "GET" })
         .then((response) => {
+          console.log(response);
           setCount(response.data.rows.length);
           dispatch(createVideos(response.data.rows));
           setTimeout(() => setLoading(false), 1200);
         })
         .catch((err) => console.error(err));
     };
-    return () => fetchData();
-  }, [dispatch]);
+    fetchData();
+  }, [dispatch, user_id]);
 
   return (
     <div className="videos">

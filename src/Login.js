@@ -55,7 +55,6 @@ const Login = () => {
         if (typeof response.data === "string") {
           setStringRegister(response.data);
         } else {
-          console.log(response.data[0]);
           dispatch(signIn(response.data[0]));
           sessionStorage.setItem("id", response.data[0].id);
         }

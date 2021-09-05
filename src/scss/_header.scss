@@ -10,12 +10,14 @@
 
     .right {
       display: flex;
-      a {
-        color: #ffebc9;
 
-        &:not(:last-child) {
-          margin-right: 1rem;
-        }
+      button {
+        padding: 0.45rem;
+        cursor: pointer;
+        border: none;
+        background-color: #753422;
+        color: #ffebc9;
+        z-index: 1;
       }
     }
   }

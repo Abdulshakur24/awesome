@@ -2,7 +2,7 @@ import "./App.scss";
 import logo from "./assets/logo.svg";
 import { useState } from "react";
 import axios from "./axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addImage, addVideo } from "./features/State";
 import Videos from "./components/Videos";
 import Images from "./components/Images";
@@ -13,6 +13,7 @@ const App = () => {
   const [show, setShow] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
+  const user_id = useSelector((state) => state.users.user.id);
 
   const [details, setDetails] = useState({
     name: "",
@@ -34,7 +35,7 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("images/create", details, { method: "POST" })
+      .post("images/create", { ...details, user_id }, { method: "POST" })
       .then((response) => {
         if (response.data.command === "INSERT") {
           const { id } = response.data.rows[0];
@@ -50,16 +51,15 @@ const App = () => {
     e.preventDefault();
     setLoadingButton(true);
     axios
-      .post("videos/create", detailsVideos, { method: "POST" })
+      .post("videos/create", { ...detailsVideos, user_id }, { method: "POST" })
       .then((response) => {
         if (response.data.command === "INSERT") {
           const { id } = response.data.rows[0];
-          console.log({ ...detailsVideos, id });
           dispatch(addVideo({ ...detailsVideos, id }));
           setLoadingButton(false);
           // setDetailsVdieos({
-          //   name: "",
-          //   url: "",
+          //
+          //   video_url: "",
           // });
         }
       });
