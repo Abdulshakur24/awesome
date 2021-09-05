@@ -10,6 +10,11 @@
 
     .right {
       display: flex;
+      align-items: center;
+
+      h4 {
+        margin-right: 0.5rem;
+      }
 
       button {
         padding: 0.45rem;

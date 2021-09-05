@@ -14,6 +14,7 @@ const App = () => {
   const [showVideo, setShowVideo] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const user_id = useSelector((state) => state.users.user.id);
+  const user_name = useSelector((state) => state.users.user.name);
 
   const [details, setDetails] = useState({
     name: "",
@@ -78,6 +79,7 @@ const App = () => {
             <img src={logo} alt="" />
           </div>
           <div className="right">
+            <h4>{user_name}</h4>
             <button onClick={logout}>Logout</button>
           </div>
         </div>
