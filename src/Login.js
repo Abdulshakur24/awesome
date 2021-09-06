@@ -4,12 +4,15 @@ import axios from "./axios";
 import { useDispatch } from "react-redux";
 import { signIn } from "./features/User";
 // import { isEqual } from "lodash";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [registerOrLogin, setState] = useState(false);
   const [stringRegister, setStringRegister] = useState("");
   const [stringLogin, setStringLogin] = useState("");
-  const dispatch = useDispatch();
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
 
   const [loginDetails, setLoginDetails] = useState({
     lg_email: "",
@@ -48,13 +51,16 @@ const Login = () => {
   }, [dispatch]);
 
   const register = (e) => {
+    setRegisterLoading(true);
     e.preventDefault();
     axios
       .post("/register", registerDetails)
       .then((response) => {
         if (typeof response.data === "string") {
           setStringRegister(response.data);
+          setLoginLoading(false);
         } else {
+          setRegisterLoading(false);
           dispatch(signIn(response.data[0]));
           sessionStorage.setItem("id", response.data[0].id);
         }
@@ -63,14 +69,17 @@ const Login = () => {
   };
 
   const login = (e) => {
+    setLoginLoading(true);
     e.preventDefault();
     axios
       .post("/login", loginDetails)
       .then((response) => {
         if (typeof response.data === "string") {
           setStringLogin(response.data);
+          setLoginLoading(false);
         } else {
           dispatch(signIn(response.data[0]));
+          setLoginLoading(false);
           sessionStorage.setItem("id", response.data[0].id);
         }
       })
@@ -108,7 +117,10 @@ const Login = () => {
                 required
                 min="10"
               />
-              <button>Sign Up</button>
+
+              <button>
+                {registerLoading ? <CircularProgress /> : <p>Sign Up</p>}
+              </button>
             </form>
           ) : (
             <form onSubmit={login}>
@@ -127,7 +139,9 @@ const Login = () => {
                 required
               />
 
-              <button>Login In</button>
+              <button disabled={loginLoading}>
+                {loginLoading ? <CircularProgress /> : <p>Login In</p>}
+              </button>
             </form>
           )}
           {registerOrLogin ? <h4>{stringRegister}</h4> : <h4>{stringLogin}</h4>}

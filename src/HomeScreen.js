@@ -48,6 +48,7 @@ const App = () => {
         }
       });
   };
+
   const handleVideoSubmit = (e) => {
     e.preventDefault();
     setLoadingButton(true);

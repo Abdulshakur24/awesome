@@ -31,6 +31,7 @@
           border: 2px solid #753422;
           background-color: #753422;
           color: white;
+          height: 2.0625rem;
 
           &::placeholder {
             color: #ffebc9;
@@ -49,17 +50,38 @@
         }
 
         button {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
           padding: 0.5rem;
           cursor: pointer;
           color: #ffebc9;
           background-color: #753422;
           border: unset;
           transition: all 200ms ease-in-out;
+
+          .MuiCircularProgress-root {
+            width: 0.85rem !important;
+            height: 0.85rem !important;
+
+            &.MuiCircularProgress-colorPrimary {
+              color: #2d140d;
+            }
+          }
+
           &:hover {
             opacity: 0.85;
           }
           &:focus {
             border: unset;
+          }
+
+          &:disabled {
+            cursor: unset;
+            &:hover {
+              opacity: unset;
+            }
           }
         }
       }

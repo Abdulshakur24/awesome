@@ -18,7 +18,6 @@ const Videos = () => {
       axios
         .get(`/videos/${user_id}`, { method: "GET" })
         .then((response) => {
-          console.log(response);
           setCount(response.data.rows.length);
           dispatch(createVideos(response.data.rows));
           setTimeout(() => setLoading(false), 1200);
