@@ -3,7 +3,6 @@ import "./scss/_login.scss";
 import axios from "./axios";
 import { useDispatch } from "react-redux";
 import { signIn } from "./features/User";
-// import { isEqual } from "lodash";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Login = () => {
@@ -125,7 +124,7 @@ const Login = () => {
           ) : (
             <form onSubmit={login}>
               <input
-                type="text"
+                type="email"
                 placeholder="Email"
                 onChange={handleChangeLogin("lg_email")}
                 value={lg_email}
